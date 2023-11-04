@@ -1,0 +1,65 @@
+.Slider img {
+    width: 100%;
+    height:90vh;
+}
+
+.image-container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+}
+.text{
+    position: absolute;
+    top: 20%;
+    color: #ffd223;
+    font-size: 80px;
+    font-weight: bold;
+    left: 15%; 
+}
+.textR {
+    position: absolute;
+    top: 40%;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    left: 30%; 
+}
+
+
+.button{
+    background-color:transparent; 
+    color: #ffd223; 
+    padding: 10px 60px; 
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    top: 54%;
+    left: 42%;
+    border-color: #ffd223; 
+}
+.button:hover {
+    font-size: 26px;
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+}
+
+@media (max-width:980px){
+    .text{
+        font-size: 60px;
+} 
+.textR {
+    top: 35%;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    left: 25%; 
+} 
+.button{
+    top: 50%;
+    left: 40%;
+}
+}
+.arrow{
+    margin-left: 10px;
+    vertical-align: middle;}

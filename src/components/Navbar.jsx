@@ -9,7 +9,7 @@ export default function Navbar() {
  <Link to="/home" ><img className='logoImage'  src={logoImage} alt="Luxury"/></Link>       
 <Link to="/home">Home</Link>
 <Link to="/carList">Car List</Link>
-<Link to="/category">Category</Link>
+<Link to="/Hourly">Hourly</Link>
 <Link to="/contactUs">Contact Us</Link>
 <Link to="/blog">Blog</Link> 
     </nav>
