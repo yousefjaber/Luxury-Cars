@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import Slider from "react-slick";
 import ".//../styles/Slider.css";
@@ -14,7 +13,7 @@ export default class SimpleSlider extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay :true,
-      autoplaySpeed: 5000,
+      autoplaySpeed: 3000,
       responsive: [
         {
           breakpoint: 1024, 

@@ -1,0 +1,19 @@
+.blog{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.blog img{
+    width: 80vh;
+    height: 60vh;
+}
+.blog h1{
+ font-size: 60px;
+}
+.blog p{
+    font-size: 20px;
+    text-align: justify;
+    width: 90vh;
+    color: grey;
+}

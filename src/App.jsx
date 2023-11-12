@@ -7,6 +7,9 @@ import Hourly from "./pages/Hourly.jsx";
 import CarList from "./pages/CarList.jsx";
 import Blog from "./pages/Blog.jsx";
 import RootLayout from "./components/Root";
+import SignIn from "./pages/SignIn";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Router =createBrowserRouter([
   {
@@ -18,6 +21,7 @@ const Router =createBrowserRouter([
       {path:"/Hourly",element:<Hourly/>},
       {path:"/ContactUs",element:<ContactUs/>},
       {path:"/Blog",element:<Blog/>},
+      {path:"/SignIn",element:<SignIn/>}
 
     ]
   }

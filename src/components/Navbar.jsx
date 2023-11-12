@@ -12,6 +12,7 @@ export default function Navbar() {
 <Link to="/Hourly">Hourly</Link>
 <Link to="/contactUs">Contact Us</Link>
 <Link to="/blog">Blog</Link> 
+<Link to="/SignIn">Sign In</Link>
     </nav>
     </>
   );

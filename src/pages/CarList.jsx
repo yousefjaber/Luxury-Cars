@@ -1,13 +1,34 @@
 import React, { useState, useContext } from "react";
 import { CarContext } from "../context/CarContext";
-import '../styles/CarList.css'
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import "../styles/CarList.css";
+import Modal from "../components/Modal";
+import { BiRightArrowCircle } from "react-icons/bi";
 
-const carList = () => {
+const CarList = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCar, setEditingCar] = useState(null);
   const [newName, setNewName] = useState("");
   const [newPrice, setNewPrice] = useState("");
   const [newImage, setNewImage] = useState("");
-  const { cars, isLoading, error, editCar, removeCar } = useContext(CarContext);
+  const [showAddCarForm, setShowAddCarForm] = useState(false);
+  const { cars, isLoading, error, editCar, removeCar, addNewCar } = useContext(CarContext);
+  const { user, signOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModalSubmit = (formData) => {
+    localStorage.setItem('modalData', JSON.stringify(formData));
+    closeModal();
+  };
 
   const openEditModal = (car) => {
     setEditingCar(car);
@@ -26,50 +47,54 @@ const carList = () => {
     setEditingCar(null);
   };
 
+  const handleAddCar = async () => {
+    await addNewCar({
+      name: newName,
+      price: newPrice,
+      image: newImage,
+    });
+    setNewName("");
+    setNewPrice("");
+    setNewImage("");
+    setShowAddCarForm(false);
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    navigate('/CarList'); 
+  };
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      {editingCar && (
+      {user && user.role === 'admin' && (
+        <>
+          <button onClick={() => setShowAddCarForm(true)}>Add Car</button>
+          <button onClick={handleSignOut}>Sign Out</button>
+        </>
+      )}
+      {showAddCarForm && (
         <div className="modal">
-          <h2>Edit Car</h2>
-          <input
-            type="text"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            placeholder="Name"
-          />
-          <input
-            type="number"
-            value={newPrice}
-            onChange={(e) => setNewPrice(e.target.value)}
-            placeholder="Price"
-          />
-          <input
-            type="text"
-            value={newImage}
-            onChange={(e) => setNewImage(e.target.value)}
-            placeholder="Image URL"
-          />
-          <button onClick={handleEditSubmit}>Update</button>
-          <button onClick={() => setEditingCar(null)}>Cancel</button>
         </div>
       )}
-
       <div className="car-container">
         {cars.map((car) => (
           <div key={car.id} className="car-card">
-            
-            {car.image && (
-              <img src={car.image} alt={car.name} className="car-image" />
-            )}
+            {car.image && <img src={car.image} alt={car.name} className="car-image" />}
             <h3 className="car-title">{car.name}</h3>
             <p className="car-price">Price: {car.price}$ per hour</p>
-            <div className="button-container">
-              <button onClick={() => openEditModal(car)}>Edit</button>
-              <button onClick={() => removeCar(car.id)}>Delete</button>
-            </div>
+            <button onClick={openModal} className="">
+              Request a Quote<BiRightArrowCircle className="arrow" />
+            </button>
+            {isModalOpen && <Modal closeModal={closeModal} onSubmit={handleModalSubmit} />}
+            {user && user.role === 'admin' && (
+              <div className="button-container">
+                <button onClick={() => openEditModal(car)}>Edit</button>
+                <button onClick={() => removeCar(car.id)}>Delete</button>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -77,4 +102,4 @@ const carList = () => {
   );
 };
 
-export default carList;
+export default CarList;
